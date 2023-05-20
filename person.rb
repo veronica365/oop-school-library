@@ -1,6 +1,6 @@
-require_relative 'nameable'
+require_relative 'numerable'
 
-class Person < Nameable
+class Person < Namerable
   attr_accessor :name, :age
   attr_reader :id, :parent_permission
 
@@ -21,6 +21,6 @@ class Person < Nameable
   private :of_age?
 
   def correct_name
-    @name.capitalize
+    @name
   end
 end

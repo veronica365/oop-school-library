@@ -1,4 +1,6 @@
-class Person
+require_relative 'nameable'
+
+class Person < Nameable
   attr_accessor :name, :age
   attr_reader :id, :parent_permission
 
@@ -17,4 +19,8 @@ class Person
     @age >= 18
   end
   private :of_age?
+
+  def correct_name
+    @name.capitalize
+  end
 end

@@ -19,9 +19,8 @@ end
 
 class TrimmerDecorator < DefaultDecorator
   def correct_name
-    if @namerable.correct_name.length > 10
-      return @namerable.correct_name[0..9]
-    end
+    name = @namerable.correct_name
+    return name[0..9] if name.length > 10
 
     @namerable.correct_name
   end

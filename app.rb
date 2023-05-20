@@ -114,7 +114,7 @@ class App
     renters_allowed = @people.select(&:can_use_services?)
     return puts "\nWe have no allowed now\n" if renters_allowed.empty?
 
-    puts 'Select a person from the following list by number (not id)'
+    puts 'Select a person from the following list by number (not id): '
     renters_allowed.each_with_index do |person, index|
       puts "#{index} [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
     end

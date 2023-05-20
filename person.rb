@@ -4,7 +4,7 @@ class Person < Namerable
   attr_accessor :name, :age
   attr_reader :id, :parent_permission
 
-  def initialize(age, name: 'Unkown', parent_permission: true)
+  def initialize(age, name, parent_permission: true)
     @id = nil
     @name = name
     @age = age

@@ -1,3 +1,5 @@
+require_relative "app"
+
 class Main
   def initialize
     puts "Welcome to the School Library App!\n\n"
@@ -10,7 +12,7 @@ class Main
       6 => "List all rentals for a given person id.",
       7 => "Exit.",
     }
-    @app = App.new(@options)
+    @app = App.new
   end
 
   def print_options(options)
@@ -18,18 +20,36 @@ class Main
     options.each { |key, value| puts "#{key} - #{value}" }
   end
 
+  def use_input(input)
+    case input
+    when "1"
+      @app.list_books
+    when "2"
+      @app.list_people
+    when "3"
+      @app.create_person
+    when "4"
+      @app.create_book
+    when "5"
+      @app.create_rental
+    else
+      @app.list_rentals
+    end
+  end
+
   def main
     options = @options
 
     loop do
       print_options(options)
-      c = gets.chomp
-      next if not c.to_i.between?(1, 7)
-      if c == "7"
+      user_input = gets.chomp
+      next if not user_input.to_i.between?(1, 7)
+
+      if user_input == "7"
         puts "Thanks for using the app!"
         return
       end
-      puts "You entered the character #{c}\n\n"
+      use_input(user_input)
     end
   end
 end

@@ -4,53 +4,61 @@ require_relative "teacher"
 
 class App
   def initialize
+    @books = []
     @people = []
     @students = []
-    # @options = options
   end
 
   def list_books
+    puts "\nListing all books"
+    @books.each do |book|
+      puts "[#{book.class}] Title: #{book.title}, Author: #{book.author}"
+    end
+    puts "\n"
   end
 
   def list_people
-    puts "Listing books:"
-    @books.each do |book|
-      puts "Title: #{book.title}, Author: #{book.author}"
+    puts "\nListing all people"
+    @people.each do |person|
+      puts "[#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
     end
-    puts "\nbooks"
+    puts "\n"
+  end
+
+  def list_rentals
   end
 
   def create_user(choice)
     print "Age: "
     age = gets.chomp.to_i
-  
+
     print "Name: "
     name = gets.chomp
-  
+
     optional_param = ""
-    if(choice==1)
-        print "Has parent permission? [Y/N]: "
-        optional_param = gets.chomp
-        optional_param = optional_param.upcase == "Y" ? true : false
+    if (choice == 1)
+      print "Has parent permission? [Y/N]: "
+      optional_param = gets.chomp
+      optional_param = optional_param.upcase == "Y" ? true : false
     end
 
-    if(choice==2)
-        print "Specialization: "
-        optional_param = gets.chomp
+    if (choice == 2)
+      print "Specialization: "
+      optional_param = gets.chomp
     end
     return age, name, optional_param
   end
 
   def create_student
     puts "\nCreating a student"
-    @people << Student.new(create_user(1))
-    puts "Student created successfully\n"
+    @people << Student.new(*create_user(1))
+    puts "Student created successfully\n\n"
   end
 
   def create_teacher
     puts "\nCreating a teacher"
-    @people << Teacher.new(create_user(2))
-    puts "Teacher created successfully\n"
+    @people << Teacher.new(*create_user(2))
+    puts "Teacher created successfully\n\n"
   end
 
   def create_person
@@ -58,15 +66,22 @@ class App
     choice = gets.chomp
     return create_student if choice == "1"
     return create_teacher if choice == "2"
-    puts "Invalid choice."
+
+    puts "Invalid choice.\n\n"
+  end
+
+  def create_book
+    puts "\nCreating a book"
+    print "Title: "
+    title = gets.chomp
+
+    print "Author: "
+    author = gets.chomp
+
+    @books << Book.new(title, author)
+    puts "Book created successfully\n\n"
   end
 
   def create_rental
   end
-
-  def person_rentals
-  end
 end
-
-app = App.new
-app.create_person

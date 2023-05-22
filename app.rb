@@ -44,9 +44,9 @@ class App
     @people.each do |person|
       if person.id == id
         puts "#{person.name.capitalize} rentals:-"
-        person.rentals.each { |rental|
+        person.rentals.each do |rental|
           puts "Date: #{rental.date}, Book: #{rental.book.title} by #{rental.book.author}"
-        }
+        end
       else
         puts "Person with #{id} has no current rentals"
       end

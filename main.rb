@@ -40,10 +40,8 @@ class Main
   end
 
   def main
-    options = @options
-
     loop do
-      print_options(options)
+      print_options(@options)
       user_input = gets.chomp
 
       if user_input == '7'

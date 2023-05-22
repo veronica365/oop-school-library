@@ -41,11 +41,12 @@ class App
     id = gets.chomp.to_i
 
     puts "Rentals: by #{id}\n"
-    @rentals.each_with_index do |rental, index|
-      if rental.person.id == id
-        puts "#{index} Date: #{rental.date}, Book: '#{rental.book.title}' by #{rental.book.author}"
+    @people.each_with_index do |person, index|
+      if person.id == id
+        puts "#{person.name} Rentals:-"
+        person.rentals.each { |rental| puts "Date: #{rental.date}, Book: #{rental.book.title} by #{rental.book.author}" }
       else
-        puts "#{id} has no current rentals"
+        puts "Person with #{id} has no current rentals"
       end
     end
   end

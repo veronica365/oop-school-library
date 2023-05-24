@@ -45,6 +45,7 @@ class Main
       user_input = gets.chomp
 
       if user_input == '7'
+        @app.save_on_exit
         puts 'Thanks for using the app!'
         return
       end

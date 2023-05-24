@@ -6,7 +6,7 @@ require_relative 'files'
 
 class App
   def initialize
-    @storage= Storage.new
+    @storage = Storage.new
     @books = @storage.load_books
     @people = @storage.load_people
     @rentals = @storage.load_rentals(@books, @people)
@@ -43,12 +43,13 @@ class App
 
     puts "Rentals: by #{id}\n"
     person_rentals = @people.find { |person| person.id == id }
-    if person_rentals.nil?
-      return puts "Person with #{id} has no current rentals"
-    end
+
+    return puts "Person with #{id} has no current rentals" if person_rentals.nil?
 
     puts "#{person_rentals.name} Rentals:-"
-    person_rentals.rentals.each { |rental| puts "Date: #{rental.date}, Book: #{rental.book.title} by #{rental.book.author}" }
+    person_rentals.rentals.each do |rental|
+      puts "Date: #{rental.date}, Book: #{rental.book.title} by #{rental.book.author}"
+    end
   end
 
   def create_user(choice)
@@ -132,6 +133,6 @@ class App
     @storage.save_books(@books)
     @storage.save_people(@people)
     @storage.save_rentals(@rentals)
-    puts "Books, people and rentals saved successfully"
+    puts 'Books, people and rentals saved successfully'
   end
 end

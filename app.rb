@@ -2,13 +2,14 @@ require_relative 'person'
 require_relative 'student'
 require_relative 'teacher'
 require_relative 'book'
+require_relative 'files'
 
 class App
   def initialize
-    @books = []
-    @people = []
-    @students = []
-    @rentals = []
+    @storage= Storage.new
+    @books = @storage.load_books
+    @people = @storage.load_people
+    @rentals = @storage.load_rentals(@books, @people)
   end
 
   def list_books(message = 'All books')
@@ -41,16 +42,13 @@ class App
     id = gets.chomp.to_i
 
     puts "Rentals: by #{id}\n"
-    @people.each do |person|
-      if person.id == id
-        puts "#{person.name.capitalize} rentals:-"
-        person.rentals.each do |rental|
-          puts "Date: #{rental.date}, Book: #{rental.book.title} by #{rental.book.author}"
-        end
-      else
-        puts "Person with #{id} has no current rentals"
-      end
+    person_rentals = @people.find { |person| person.id == id }
+    if person_rentals.nil?
+      return puts "Person with #{id} has no current rentals"
     end
+
+    puts "#{person_rentals.name} Rentals:-"
+    person_rentals.rentals.each { |rental| puts "Date: #{rental.date}, Book: #{rental.book.title} by #{rental.book.author}" }
   end
 
   def create_user(choice)
@@ -128,5 +126,12 @@ class App
 
     @rentals << Rental.new(date, renters_allowed[renter_person_id], @books[book_id])
     puts "Rental created successfully\n"
+  end
+
+  def save_on_exit
+    @storage.save_books(@books)
+    @storage.save_people(@people)
+    @storage.save_rentals(@rentals)
+    puts "Books, people and rentals saved successfully"
   end
 end

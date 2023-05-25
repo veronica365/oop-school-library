@@ -20,4 +20,3 @@ describe Student do
     expect(@student.classroom.label).to eq('Form one')
   end
 end
-

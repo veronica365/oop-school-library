@@ -88,9 +88,9 @@ To run the project, execute the following command:
 
 ### Run tests
 
-To run tests, run the following command:
+To run tests, run the following command: Install through : gem install rspec
 
-- no tests yet are included in this project
+Run: rspec to tun tests
 
 ### Deployment
 
